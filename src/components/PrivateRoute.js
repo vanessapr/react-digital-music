@@ -1,31 +1,22 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-
-const isAuthenticated = () => false;
+import store from '../configureStore';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  let isLoggedIn = store.getState().login.isLoggedIn;
+
   return (
     <Route {...rest} render={ props => (
-      isAuthenticated() ? (
+      isLoggedIn?
         <Component {...props} />
-      ): (
+      :
         <Redirect to={{
           pathname: '/login',
           state: { from: props.location }
         }} />
       )
-    )} />
+    } />
   );
 };
 
 export default PrivateRoute;
-
-//
-// const PrivateRoute = ({ render, auth, ...rest }) => {
-//   return (
-//     <Route
-//       {...rest}
-//       render={auth === true ? render : props => <Redirect to="/" />}
-//     />
-//   );
-// };
