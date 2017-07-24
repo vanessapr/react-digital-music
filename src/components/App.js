@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import LoginContainer from './Login/LoginContainer';
 import SignUp from './Login/SignUp';
 import ProfileContainer from './Users/ProfileContainer';
+import UpdateProfileContainer from './Users/UpdateProfileContainer';
 import TopArtistsContainer from './artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
 
@@ -44,6 +45,7 @@ class App extends Component {
                   <Route path="/signup" component={SignUp} />
                   <Route path="/login" component={LoginContainer} />
                   <PrivateRoute path="/your_artists" component={FavoriteArtistsContainer} />
+                  <PrivateRoute path="/profile" component={UpdateProfileContainer} />
                   <Route path="/public" render={() => <div>public.. </div> } />
                 </Switch>
               </div>

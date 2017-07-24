@@ -1,3 +1,6 @@
-.footer {
-  
+.required::after {
+  content: '*';
+  padding-left: 5px;
+  font-size: 16px;
+  color: red;
 }
