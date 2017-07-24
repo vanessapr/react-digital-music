@@ -4,6 +4,7 @@ import 'notie/dist/notie.css';
 import api from './utils/api';
 import { firebaseSignIn, firebaseSignOut } from './utils/firebase';
 import Artist from './utils/artist';
+import User from './utils/user';
 
 function* fetchTopArtistsSaga(action) {
   try {
@@ -64,6 +65,24 @@ function* signOutSaga(action) {
   }
 }
 
+function* updateProfileSaga({ payload }) {
+  try {
+    yield call(User.updateProfile, payload);
+    notie.alert({ type: 'success', text: 'Updated your profile' });
+  } catch (error) {
+    notie.alert({ type: 'error', text: error.message });
+  }
+}
+
+function* getProfileSaga() {
+  try {
+    const user = yield call(User.getProfile);
+    yield put({ type: 'FETCH_PROFILE_SUCCESS', payload: user });
+  } catch (error) {
+    yield put({ type: 'FETCH_PROFILE_FAILED', payload: error.message });
+  }
+}
+
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
@@ -72,4 +91,6 @@ export default function* rootSaga() {
   yield takeEvery('REMOVE_FAVORITE_ARTIST', removeFavoriteSaga);
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
+  yield takeEvery('UPDATE_PROFILE', updateProfileSaga);
+  yield takeLatest('FETCH_PROFILE', getProfileSaga);
 }

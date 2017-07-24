@@ -21,7 +21,7 @@ class FavoriteArtists extends Component {
           )
         }
       </div>
-    );;
+    );
   }
 }
 

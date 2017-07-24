@@ -7,3 +7,12 @@ export const signOut = (history) => ({
   type: 'AUTH_LOGOUT',
   payload: history
 });
+
+export const saveProfile = (data) => ({
+  type: 'UPDATE_PROFILE',
+  payload: data
+});
+
+export const getProfile = () => ({
+  type: 'FETCH_PROFILE'
+});

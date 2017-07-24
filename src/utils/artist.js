@@ -5,11 +5,11 @@ export default {
     let currentUser = firebaseAuth().currentUser;
 
     return new Promise((resolve, reject) => {
-      ref.child(`users/${currentUser.uid}/artists`)
+      ref.child(`artists/${currentUser.uid}`)
         .once('value')
         .then(snap => {
           if (snap.val() == null || Object.keys(snap.val()).length < 5 ) {
-            ref.child(`users/${currentUser.uid}/artists/${data.uuid}`)
+            ref.child(`artists/${currentUser.uid}/${data.uuid}`)
               .set({selected: true, ...data})
               .then(resolve)
               .catch(err => reject(err));
@@ -21,10 +21,10 @@ export default {
   },
   getFavorites: () => {
     let currentUser = firebaseAuth().currentUser;
-    return ref.child(`users/${currentUser.uid}/artists`).once('value').then(snap => snap.val());
+    return ref.child(`artists/${currentUser.uid}`).once('value').then(snap => snap.val());
   },
   removeFavorite: (uuid) => {
     let currentUser = firebaseAuth().currentUser;
-    return ref.child(`users/${currentUser.uid}/artists/${uuid}`).remove();
+    return ref.child(`artists/${currentUser.uid}/${uuid}`).remove();
   }
 }
