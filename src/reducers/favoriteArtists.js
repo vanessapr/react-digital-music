@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-const data = (state = [], action) => {
+const data = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_FAVORITE_ARTIST_SUCCESS':
-      return [...state, action.payload];
+    case 'FETCH_FAVORITE_ARTISTS_SUCCESS':
+      return action.payload;
     default:
       return state;
   }
@@ -11,10 +11,10 @@ const data = (state = [], action) => {
 
 const errorMessage = (state = null, action) => {
   switch (action.type) {
-    case 'ADD_FAVORITE_ARTIST':
-    case 'ADD_FAVORITE_ARTIST_SUCCESS':
+    case 'FETCH_FAVORITE_ARTISTS':
+    case 'FETCH_FAVORITE_ARTISTS_SUCCESS':
       return null;
-    case 'ADD_FAVORITE_ARTIST_FAILED':
+    case 'FETCH_FAVORITE_ARTISTS_FAILED':
       return action.payload;
     default:
       return state;

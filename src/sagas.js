@@ -25,6 +25,15 @@ function* addFavoriteArtistSaga({ payload }) {
   }
 }
 
+function* fetchFavoriteArtistsSaga(action) {
+  try {
+    const artists = yield call(Artist.getFavorites);
+    yield put({ type: 'FETCH_FAVORITE_ARTISTS_SUCCESS', payload: artists });
+  } catch (error) {
+    yield put({ type: 'FETCH_FAVORITE_ARTISTS_FAILED', payload: error });
+  }
+}
+
 function* signInSaga(action) {
   try {
     const authData = yield call(firebaseSignIn, action.payload);
@@ -47,6 +56,7 @@ function* signOutSaga(action) {
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
+  yield takeLatest('FETCH_FAVORITE_ARTISTS', fetchFavoriteArtistsSaga);
   yield takeEvery('ADD_FAVORITE_ARTIST', addFavoriteArtistSaga);
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);

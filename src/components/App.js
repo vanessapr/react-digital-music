@@ -8,7 +8,7 @@ import LoginContainer from './Login/LoginContainer';
 import SignUp from './Login/SignUp';
 import ProfileContainer from './Users/ProfileContainer';
 import TopArtistsContainer from './artists/TopArtistsContainer';
-import FavoriteArtists from './artists/FavoriteArtists';
+import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
 
 class App extends Component {
   componentWillMount() {
@@ -42,7 +42,7 @@ class App extends Component {
                 <PrivateRoute path="/" exact component={TopArtistsContainer} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/login" component={LoginContainer} />
-                <Route path="/your_artists" component={FavoriteArtists} />
+                <PrivateRoute path="/your_artists" component={FavoriteArtistsContainer} />
                 <Route path="/public" render={() => <div>public.. </div> } />
               </Switch>
             </div>
