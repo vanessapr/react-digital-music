@@ -3,11 +3,7 @@ import avatar from './profile.jpg';
 import './profile.css';
 
 const Profile = ({ user, isLoading, isLoggedIn }) => {
-  console.log('user', user, 'isLoading', isLoading);
-  return isLoading?
-    <div>Loading...</div>
-    :
-    (
+  return (
       isLoggedIn &&
       <div className="__profile">
         <div className="__profile_img">

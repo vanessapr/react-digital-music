@@ -14,7 +14,7 @@ const Artist = ({ data, onAddFavorite, onRemoveFavorite }) => (
 
     <div className="card-section">
       <h5>
-        <a href={data.url}>{data.name}</a>
+        <a href={data.url} target="blank">{data.name}</a>
         <button onClick={ e => {
           onAddFavorite(data);
         }}>

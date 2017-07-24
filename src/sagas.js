@@ -85,6 +85,17 @@ function* getProfileSaga() {
   }
 }
 
+function* signUpSaga({ payload: { data, history } }) {
+  try {
+    const user = yield call(User.create, data);
+    yield put({ type: 'AUTH_SIGNUP_SUCCESS', payload: { email: data.email, displayName: data.fullName } });
+    history.push('/login');
+  } catch (error) {
+    yield put({ type: 'AUTH_SIGNUP_FAILED', payload: error.message });
+    notie.alert({ type: 'error', text: error.message });
+  }
+}
+
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
@@ -95,4 +106,5 @@ export default function* rootSaga() {
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
   yield takeEvery('UPDATE_PROFILE', updateProfileSaga);
   yield takeLatest('FETCH_PROFILE', getProfileSaga);
+  yield takeEvery('AUTH_SIGNUP', signUpSaga);
 }

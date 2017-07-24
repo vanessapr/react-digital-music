@@ -39,7 +39,7 @@ class Login extends Component {
               <input type="password" ref={ node => this.password = node } placeholder="Enter your password" required />
             </label>
             <button type="submit" className="button">Sign In</button>
-            <Link to="/signup">Sign Up</Link>
+              {' '}<Link to="/signup">Sign Up</Link>
           </form>
         </div>
       </div>

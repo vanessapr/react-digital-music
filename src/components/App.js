@@ -6,7 +6,7 @@ import TopbarContainer from './Topbar/TopbarContainer';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import LoginContainer from './Login/LoginContainer';
-import SignUp from './Login/SignUp';
+import SignUpContainer from './Login/SignUpContainer';
 import ProfileContainer from './Users/ProfileContainer';
 import UpdateProfileContainer from './Users/UpdateProfileContainer';
 import TopArtistsContainer from './artists/TopArtistsContainer';
@@ -42,11 +42,10 @@ class App extends Component {
               <div className="cell medium-9 medium-cell-block-y">
                 <Switch>
                   <PrivateRoute path="/" exact component={TopArtistsContainer} />
-                  <Route path="/signup" component={SignUp} />
+                  <Route path="/signup" component={SignUpContainer} />
                   <Route path="/login" component={LoginContainer} />
                   <PrivateRoute path="/your_artists" component={FavoriteArtistsContainer} />
                   <PrivateRoute path="/profile" component={UpdateProfileContainer} />
-                  <Route path="/public" render={() => <div>public.. </div> } />
                 </Switch>
               </div>
             </div>
@@ -55,7 +54,7 @@ class App extends Component {
             <div className="grid-x grid-padding-x">
               <div className="cell auto">
                 <hr />
-                <p>Source: </p>
+                <p>Source: <a href="https://github.com/Vanessa85/react-digital-music" target="blank">react-digital-music</a></p>
               </div>
             </div>
           </div>

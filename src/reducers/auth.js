@@ -4,6 +4,7 @@ const user = (state = JSON.parse(localStorage.getItem('firebase')), action) => {
   switch (action.type) {
     case 'AUTH_STATUS_SUCCESS':
     case 'AUTH_LOGIN_SUCCESS':
+    case 'AUTH_SIGNUP_SUCCESS':
       return action.payload;
     case 'AUTH_STATUS_FAILED':
       return null;

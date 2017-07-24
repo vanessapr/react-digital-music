@@ -7,11 +7,17 @@ export default {
   logout: () => {
     return firebaseApp.auth().signOut();
   },
-  create: (email, password) => {
-    return firebaseAuth()
-      .createUserWithEmailAndPassword(email, password).then(user => {
-        return user;
-      });
+  create: ({email, password, fullName}) => {
+    return new Promise((resolve, reject) => {
+      firebaseAuth()
+        .createUserWithEmailAndPassword(email, password).then(user => {
+          user.updateProfile({
+            displayName: fullName
+          }).then(() => {
+            resolve(user);
+          }).catch(reject);
+        }).catch(reject);
+    });
   },
   updateProfile: (data) => {
     let currentUser = firebaseApp.auth().currentUser;
