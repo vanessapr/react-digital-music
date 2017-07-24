@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import store from '../configureStore';
 import firebaseApp from '../utils/firebase';
 import TopbarContainer from './Topbar/TopbarContainer';
+import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import LoginContainer from './Login/LoginContainer';
 import SignUp from './Login/SignUp';
@@ -27,24 +28,33 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <TopbarContainer />
-          <div className="grid-x grid-padding-x">
-            <div className="cell medium-4 medium-cell-block-y">
-              <ProfileContainer />
-              <ul className="vertical menu list-square">
-                <li><NavLink exact to="/">Top Artists</NavLink></li>
-                <li><NavLink to="/your_artists">Your favorite artists</NavLink></li>
-              </ul>
+        <div className="grid-y medium-grid-frame">
+          <div className="cell shrink header medium-cell-block-container">
+            <TopbarContainer />
+          </div>
+          <div className="cell medium-auto medium-cell-block-container">
+            <div className="grid-x grid-padding-x">
+              <div className="cell medium-3 medium-cell-block-y">
+                <ProfileContainer />
+                <Navigation />
+              </div>
+              <div className="cell medium-9 medium-cell-block-y">
+                <Switch>
+                  <PrivateRoute path="/" exact component={TopArtistsContainer} />
+                  <Route path="/signup" component={SignUp} />
+                  <Route path="/login" component={LoginContainer} />
+                  <PrivateRoute path="/your_artists" component={FavoriteArtistsContainer} />
+                  <Route path="/public" render={() => <div>public.. </div> } />
+                </Switch>
+              </div>
             </div>
-            <div className="cell medium-8 medium-cell-block-y">
-              <Switch>
-                <PrivateRoute path="/" exact component={TopArtistsContainer} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/login" component={LoginContainer} />
-                <PrivateRoute path="/your_artists" component={FavoriteArtistsContainer} />
-                <Route path="/public" render={() => <div>public.. </div> } />
-              </Switch>
+          </div>
+          <div className="cell shrink footer">
+            <div className="grid-x grid-padding-x">
+              <div className="cell auto">
+                <hr />
+                <p>Source: </p>
+              </div>
             </div>
           </div>
         </div>

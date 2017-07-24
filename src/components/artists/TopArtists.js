@@ -10,10 +10,10 @@ class TopArtists extends Component {
     const { artists, addFavorite } = this.props;
 
     return (
-      <div className="grid-x grid-margin-x">
+      <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-5">
         {
           Object.keys(artists).map( (uuid, index) =>
-            <div key={index} className="cell small-3">
+            <div key={index} className="cell">
               <Artist
                 data={artists[uuid]}
                 onAddFavorite={addFavorite}/>
