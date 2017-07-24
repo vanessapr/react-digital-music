@@ -32,7 +32,7 @@ class App extends Component {
           <div className="grid-x grid-padding-x">
             <div className="cell medium-4 medium-cell-block-y">
               <ProfileContainer />
-              <ul className="vertical menu">
+              <ul className="vertical menu list-square">
                 <li><NavLink exact to="/">Top Artists</NavLink></li>
                 <li><NavLink to="/your_artists">Your favorite artists</NavLink></li>
               </ul>

@@ -21,7 +21,18 @@ function* addFavoriteArtistSaga({ payload }) {
     notie.alert({ type: 'success', text: 'Added to your favorites' });
   } catch (error) {
     notie.alert({ type: 'error', text: error.message });
-    yield put({ type: 'ADD_FAVORITE_ARTIST_FAILED', payload: error });
+    yield put({ type: 'ADD_FAVORITE_ARTIST_FAILED', payload: error.message });
+  }
+}
+
+function* removeFavoriteSaga({ payload }) {
+  try {
+    yield call(Artist.removeFavorite, payload);
+    yield put({ type: 'REMOVE_FAVORITE_ARTIST_SUCCESS', payload });
+    notie.alert({ type: 'success', text: 'Removed artists of your favorites' });
+  } catch(error) {
+    notie.alert({ type: 'error', text: error.message });
+    yield put({ type: 'REMOVE_FAVORITE_ARTIST_FAILED', payload: error.message });
   }
 }
 
@@ -58,6 +69,7 @@ export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
   yield takeLatest('FETCH_FAVORITE_ARTISTS', fetchFavoriteArtistsSaga);
   yield takeEvery('ADD_FAVORITE_ARTIST', addFavoriteArtistSaga);
+  yield takeEvery('REMOVE_FAVORITE_ARTIST', removeFavoriteSaga);
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
 }

@@ -12,10 +12,10 @@ class TopArtists extends Component {
     return (
       <div className="grid-x grid-margin-x">
         {
-          artists.map( (item, index) =>
+          Object.keys(artists).map( (uuid, index) =>
             <div key={index} className="cell small-3">
               <Artist
-                data={item}
+                data={artists[uuid]}
                 onAddFavorite={addFavorite}/>
             </div>
           )

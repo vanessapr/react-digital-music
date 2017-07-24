@@ -10,3 +10,8 @@ export const addFavorite = (artist) => ({
 export const getFavorites = () => ({
   type: 'FETCH_FAVORITE_ARTISTS',
 });
+
+export const removeFavorite = (uuid) => ({
+  type: 'REMOVE_FAVORITE_ARTIST',
+  payload: uuid
+});

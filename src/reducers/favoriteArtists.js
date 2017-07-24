@@ -4,6 +4,10 @@ const data = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_FAVORITE_ARTISTS_SUCCESS':
       return action.payload;
+    case 'REMOVE_FAVORITE_ARTIST_SUCCESS':
+      let newData = {...state};
+      delete newData[action.payload];
+      return newData;
     default:
       return state;
   }

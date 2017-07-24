@@ -7,7 +7,7 @@ class FavoriteArtists extends Component {
   }
 
   render() {
-    const { artists } = this.props;
+    const { artists, removeFavorite } = this.props;
 
     return (
       <div className="grid-x grid-margin-x">
@@ -15,7 +15,8 @@ class FavoriteArtists extends Component {
           Object.keys(artists).map( (item, index) =>
             <div key={index} className="cell small-3">
               <Artist
-                data={artists[item]} />
+                data={artists[item]}
+                onRemoveFavorite={removeFavorite} />
             </div>
           )
         }
