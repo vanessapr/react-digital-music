@@ -1,6 +1,9 @@
 import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import notie from 'notie';
+import 'notie/dist/notie.css';
 import api from './utils/api';
 import { firebaseSignIn, firebaseSignOut } from './utils/firebase';
+import Artist from './utils/artist';
 
 function* fetchTopArtistsSaga(action) {
   try {
@@ -8,6 +11,17 @@ function* fetchTopArtistsSaga(action) {
     yield put({ type: 'FETCH_TOP_ARTISTS_SUCCESS', payload: artists });
   } catch (error) {
     yield put({ type: 'FETCH_TOP_ARTISTS_FAILED', payload: error });
+  }
+}
+
+function* addFavoriteArtistSaga({ payload }) {
+  try {
+    yield call(Artist.addFavorite, payload);
+    yield put({ type: 'ADD_FAVORITE_ARTIST_SUCCESS', payload });
+    notie.alert({ type: 'success', text: 'Added to your favorites' });
+  } catch (error) {
+    notie.alert({ type: 'error', text: error.message });
+    yield put({ type: 'ADD_FAVORITE_ARTIST_FAILED', payload: error });
   }
 }
 
@@ -33,6 +47,7 @@ function* signOutSaga(action) {
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
+  yield takeEvery('ADD_FAVORITE_ARTIST', addFavoriteArtistSaga);
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
 }

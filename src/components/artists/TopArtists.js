@@ -7,14 +7,16 @@ class TopArtists extends Component {
   }
 
   render() {
-    const { artists } = this.props;
+    const { artists, addFavorite } = this.props;
 
     return (
-      <div className="grid-x">
+      <div className="grid-x grid-margin-x">
         {
           artists.map( (item, index) =>
             <div key={index} className="cell small-3">
-              <Artist data={item} />
+              <Artist
+                data={item}
+                onAddFavorite={addFavorite}/>
             </div>
           )
         }

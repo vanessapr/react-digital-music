@@ -15,7 +15,10 @@ const attr = (state = null, action) => {
 const data = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_TOP_ARTISTS_SUCCESS':
-      return action.payload.artist;
+      return action.payload.artist.map(item => {
+        item.image = item.image[2]['#text'];
+        return item;
+      });
     default:
       return state;
   }

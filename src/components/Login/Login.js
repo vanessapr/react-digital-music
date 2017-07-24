@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -39,6 +39,7 @@ class Login extends Component {
               <input type="password" ref={ node => this.password = node } placeholder="Enter your password" required />
             </label>
             <button type="submit" className="button">Sign In</button>
+            <Link to="/signup">Sign Up</Link>
           </form>
         </div>
       </div>

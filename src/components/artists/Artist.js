@@ -1,11 +1,20 @@
 import React from 'react';
 
-const Artist = ({ data }) => (
+const Artist = ({ data, onAddFavorite }) => (
   <div className="card">
-    <img src={data.image[1]['#text']} alt={data.name} />
+    <img src={data.image} alt={data.name} />
     <div className="card-section">
-      <h4>{data.name}</h4>
-      <p>{data.listeners}</p>
+      <h4>
+        <a href={data.url}>{data.name}</a>
+        <button onClick={ e => {
+          onAddFavorite(data);
+        }}>
+          <i className="zmdi zmdi-favorite zmdi-hc-fw"></i>
+        </button>
+      </h4>
+      <p><i className="zmdi zmdi-headset zmdi-hc-fw"></i>{data.listeners}
+      </p>
+
     </div>
   </div>
 );

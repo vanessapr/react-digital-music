@@ -6,6 +6,7 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import 'foundation-sites/dist/css/foundation.css';
 import 'foundation-sites/dist/css/foundation-prototype.css';
+import 'material-design-iconic-font/dist/css/material-design-iconic-font.css';
 import './index.css';
 
 ReactDOM.render(
