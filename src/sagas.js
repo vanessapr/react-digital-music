@@ -2,7 +2,6 @@ import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import notie from 'notie';
 import 'notie/dist/notie.css';
 import api from './utils/api';
-import { firebaseSignIn, firebaseSignOut } from './utils/firebase';
 import Artist from './utils/artist';
 import User from './utils/user';
 
@@ -49,16 +48,18 @@ function* fetchFavoriteArtistsSaga(action) {
 
 function* signInSaga(action) {
   try {
-    const authData = yield call(firebaseSignIn, action.payload);
+    const authData = yield call(User.login, action.payload);
     yield put({ type: 'AUTH_LOGIN_SUCCESS', payload: authData });
+    notie.alert({ type: 'success', text: 'Welcome to the React Music.'});
   } catch (error) {
-    yield put({ type: 'AUTH_LOGIN_FAILED', payload: error });
+    notie.alert({ type: 'error', text: error.message });
+    yield put({ type: 'AUTH_LOGIN_FAILED', payload: error.message });
   }
 }
 
 function* signOutSaga(action) {
   try {
-    yield call(firebaseSignOut);
+    yield call(User.logout);
     yield put({ type: 'AUTH_LOGOUT_SUCCESS' });
     action.payload.push('/login');
   } catch (error) {

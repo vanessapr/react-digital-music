@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const isLoggedIn = (state = false, action) => {
+const isLoggedIn = (state = !!localStorage.getItem('firebase'), action) => {
   switch (action.type) {
     case 'AUTH_STATUS_SUCCESS':
     case 'AUTH_LOGIN_SUCCESS':

@@ -13,14 +13,14 @@ import TopArtistsContainer from './artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     store.dispatch({ type: 'AUTH_STATUS' });
     firebaseApp.auth().onAuthStateChanged( user => {
       if (user) {
-        // window.localStorage.setItem('uid', user.uid);
+        window.localStorage.setItem('firebase', JSON.stringify(user));
         store.dispatch({ type: 'AUTH_STATUS_SUCCESS', payload: user });
       } else {
-        // window.localStorage.removeItem('uid');
+        window.localStorage.removeItem('firebase');
         store.dispatch({ type: 'AUTH_STATUS_FAILED'});
       }
     });

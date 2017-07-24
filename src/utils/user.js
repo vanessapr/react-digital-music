@@ -1,6 +1,12 @@
-import { firebaseAuth, ref } from './firebase';
+import firebaseApp, { firebaseAuth, ref } from './firebase';
 
 export default {
+  login: ({ email, password }) => {
+    return firebaseApp.auth().signInWithEmailAndPassword(email, password);
+  },
+  logout: () => {
+    return firebaseApp.auth().signOut();
+  },
   create: (email, password) => {
     return firebaseAuth()
       .createUserWithEmailAndPassword(email, password).then(user => {
@@ -8,7 +14,7 @@ export default {
       });
   },
   updateProfile: (data) => {
-    let currentUser = firebaseAuth().currentUser;
+    let currentUser = firebaseApp.auth().currentUser;
     const { fullName, email, password, birthdate, doc, passwordOld } = data;
 
     return new Promise((resolve, reject) => {
@@ -39,7 +45,7 @@ export default {
   },
   getProfile: () => {
     return new Promise((resolve, reject) => {
-      let currentUser = firebaseAuth().currentUser;
+      let currentUser = firebaseApp.auth().currentUser;
       ref.child(`users/${currentUser.uid}`).once('value')
         .then(snap => {
           resolve( Object.assign(currentUser, snap.val()) );
