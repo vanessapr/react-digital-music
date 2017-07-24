@@ -21,7 +21,7 @@ export default {
   },
   getFavorites: () => {
     let currentUser = firebaseAuth().currentUser;
-    return ref.child(`artists/${currentUser.uid}`).once('value').then(snap => snap.val());
+    return ref.child(`artists/${currentUser.uid}`).once('value').then(snap => snap.val() || {});
   },
   removeFavorite: (uuid) => {
     let currentUser = firebaseAuth().currentUser;

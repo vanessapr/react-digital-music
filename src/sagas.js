@@ -42,7 +42,8 @@ function* fetchFavoriteArtistsSaga(action) {
     const artists = yield call(Artist.getFavorites);
     yield put({ type: 'FETCH_FAVORITE_ARTISTS_SUCCESS', payload: artists });
   } catch (error) {
-    yield put({ type: 'FETCH_FAVORITE_ARTISTS_FAILED', payload: error });
+    notie.alert({ type: 'error', text: error.message });
+    yield put({ type: 'FETCH_FAVORITE_ARTISTS_FAILED', payload: error.message });
   }
 }
 
