@@ -8,11 +8,12 @@ export default {
       ref.child(`artists/${currentUser.uid}`)
         .once('value')
         .then(snap => {
-          if (snap.val() == null || Object.keys(snap.val()).length < 5 ) {
+          snap = snap || {};
+          if (Object.keys(snap.val()).length < 5 ) {
             ref.child(`artists/${currentUser.uid}/${data.uuid}`)
               .set({selected: true, ...data})
               .then(resolve)
-              .catch(err => reject(err));
+              .catch(reject);
           } else {
             reject(new Error('The limit is 5 artists'));
           }

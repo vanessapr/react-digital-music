@@ -55,9 +55,7 @@ export default {
       ref.child(`users/${currentUser.uid}`).once('value')
         .then(snap => {
           resolve( Object.assign(currentUser, snap.val()) );
-        }).catch(err => {
-          reject(err);
-        });
+        }).catch(reject);
     });
 
   }

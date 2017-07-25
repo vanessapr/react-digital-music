@@ -34,7 +34,6 @@ class UpdateProfile extends Component {
   }
 
   render() {
-    const { data } = this.props;
 
     return (
       <div>
@@ -68,7 +67,6 @@ class UpdateProfile extends Component {
             <div className="cell small-9">
               <input type="text"
                 id="txt_doc"
-                value={data.doc}
                 ref={ node => this.doc = node } placeholder="Enter your identification document" />
             </div>
           </div>
