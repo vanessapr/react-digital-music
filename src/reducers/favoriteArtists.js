@@ -13,6 +13,18 @@ const data = (state = {}, action) => {
   }
 }
 
+const isLoading = (state = false, action) => {
+  switch (action.type) {
+    case 'FETCH_FAVORITE_ARTISTS':
+      return true;
+    case 'FETCH_FAVORITE_ARTISTS_SUCCESS':
+    case 'FETCH_FAVORITE_ARTISTS_FAILED':
+      return false;
+    default:
+      return state;
+  }
+}
+
 const errorMessage = (state = null, action) => {
   switch (action.type) {
     case 'FETCH_FAVORITE_ARTISTS':
@@ -27,5 +39,6 @@ const errorMessage = (state = null, action) => {
 
 export default combineReducers({
   data,
+  isLoading,
   errorMessage
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Message } from '../Helpers';
+import { Loading, Message } from '../Helpers';
 import Artist from './Artist';
 
 class FavoriteArtists extends Component {
@@ -9,32 +9,39 @@ class FavoriteArtists extends Component {
   }
 
   render() {
-    const { artists, removeFavorite } = this.props;
+    const { artists, removeFavorite, isLoading, errorMessage } = this.props;
     let keys = Object.keys(artists);
 
-    if (keys.length) {
-      return (
-        <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-5">
-          {
-            keys.map( (item, index) =>
-              <div key={index} className="cell">
-                <Artist
-                  data={artists[item]}
-                  onRemoveFavorite={removeFavorite} />
-              </div>
-            )
-          }
-        </div>
-      );
-    } else {
-      return <Message
-        title="Your Favorite Artists">
-          <p>No records</p>
-          <Link to="/">Add Artists to your playlist</Link>
-        </Message>
-    }
-
-
+    return (
+      isLoading?
+        <Loading height="100%" />
+      :
+      (
+        errorMessage?
+          <Message title="Your Favorite Artists" type="alert">
+            <p>{ errorMessage }</p>
+          </Message>
+        :
+        (keys.length?
+          <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-5">
+            {
+              keys.map( (item, index) =>
+                <div key={index} className="cell">
+                  <Artist
+                    data={artists[item]}
+                    onRemoveFavorite={removeFavorite} />
+                </div>
+              )
+            }
+          </div>
+          :
+          <Message title="Your Favorite Artists">
+            <p>No records</p>
+            <Link to="/">Add Artists to your playlist</Link>
+          </Message>
+        )
+      )
+    );
   }
 }
 
