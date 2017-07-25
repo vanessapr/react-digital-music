@@ -17,8 +17,8 @@ export const Loading = ({ height }) => {
   let styles = {
     backgroundImage: `url(${spinner})`,
     backgroundRepeat: 'no-repeat',
-    width: '200px',
-    height: '200px'
+    width: '150px',
+    height: '150px'
   };
 
   return (
