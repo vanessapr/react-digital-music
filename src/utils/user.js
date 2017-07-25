@@ -11,9 +11,17 @@ export default {
     return new Promise((resolve, reject) => {
       firebaseAuth()
         .createUserWithEmailAndPassword(email, password).then(user => {
-          user.updateProfile({
-            displayName: fullName
-          }).then(() => {
+          Promise.all([
+            ref.child(`users/${user.uid}`)
+              .set({
+                role: 'public',
+                fullName: fullName,
+                email: email,
+              }),
+            user.updateProfile({
+              displayName: fullName
+            })
+          ]).then(() => {
             resolve(user);
           }).catch(reject);
         }).catch(reject);
@@ -34,6 +42,8 @@ export default {
           ref.child(`users/${currentUser.uid}`)
             .set({
               role: 'public',
+              fullName: fullName,
+              email: email,
               birthdate: birthdate,
               doc: doc
             })
@@ -57,6 +67,8 @@ export default {
           resolve( Object.assign(currentUser, snap.val()) );
         }).catch(reject);
     });
-
+  },
+  getUsers: () => {
+    return ref.child('users').once('value').then(snap => snap.val());
   }
 }

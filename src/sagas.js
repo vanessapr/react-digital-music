@@ -96,6 +96,15 @@ function* signUpSaga({ payload: { data, history } }) {
   }
 }
 
+function* getUsersSaga(action) {
+  try {
+    const users = yield call(User.getUsers);
+    yield put({ type: 'FETCH_USERS_SUCCESS', payload: users });
+  } catch (error) {
+    yield put({ type: 'FETCH_USERS_FAILED', payload: error.message });
+  }
+}
+
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
@@ -107,4 +116,5 @@ export default function* rootSaga() {
   yield takeEvery('UPDATE_PROFILE', updateProfileSaga);
   yield takeLatest('FETCH_PROFILE', getProfileSaga);
   yield takeEvery('AUTH_SIGNUP', signUpSaga);
+  yield takeLatest('FETCH_USERS', getUsersSaga);
 }

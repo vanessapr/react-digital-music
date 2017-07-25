@@ -12,6 +12,7 @@ import ProfileContainer from './Users/ProfileContainer';
 import UpdateProfileContainer from './Users/UpdateProfileContainer';
 import TopArtistsContainer from './artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
+import ListUsersContainer from './Users/ListUsersContainer';
 
 class App extends Component {
   state = {
@@ -56,6 +57,7 @@ class App extends Component {
                   <Route path="/login" component={LoginContainer} />
                   <PrivateRoute path="/your_artists" auth={user} component={FavoriteArtistsContainer} />
                   <PrivateRoute path="/profile" auth={user} component={UpdateProfileContainer} />
+                  <PrivateRoute path="/users" auth={user} component={ListUsersContainer} />
                 </Switch>
               </div>
             </div>

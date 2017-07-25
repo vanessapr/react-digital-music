@@ -20,6 +20,11 @@ const Navigation = () => (
           <i className="zmdi zmdi-playlist-audio zmdi-hc-lg"></i> Your favorite artists
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/users">
+          <i className="zmdi zmdi-accounts-alt zmdi-hc-fw"></i> Users
+        </NavLink>
+      </li>
     </ul>
   </div>
 );
