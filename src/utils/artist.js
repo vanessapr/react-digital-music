@@ -7,9 +7,10 @@ export default {
     return new Promise((resolve, reject) => {
       ref.child(`artists/${currentUser.uid}`)
         .once('value')
-        .then(snap => {
-          snap = snap || {};
-          if (Object.keys(snap.val()).length < 5 ) {
+        .then(snap => snap.val())
+        .then(value => {
+          value = value || {};
+          if (Object.keys(value).length < 5 ) {
             ref.child(`artists/${currentUser.uid}/${data.uuid}`)
               .set({selected: true, ...data})
               .then(resolve)
