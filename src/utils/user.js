@@ -64,11 +64,21 @@ export default {
       let currentUser = firebaseApp.auth().currentUser;
       ref.child(`users/${currentUser.uid}`).once('value')
         .then(snap => {
-          resolve( Object.assign(currentUser, snap.val()) );
+          resolve( snap.val() );
         }).catch(reject);
     });
   },
+  getUser: (uid) => {
+    return ref.child(`users/${uid}`).once('value')
+      .then(snap => snap.val() );
+  },
   getUsers: () => {
-    return ref.child('users').once('value').then(snap => snap.val());
+    let currentUser = firebaseApp.auth().currentUser;
+    return ref.child('users').once('value')
+      .then(snap => snap.val())
+      .then(data => {
+        delete data[currentUser.uid]
+        return data;
+      });
   }
 }
