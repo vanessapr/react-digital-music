@@ -76,15 +76,6 @@ function* updateProfileSaga({ payload }) {
   }
 }
 
-function* getProfileSaga() {
-  try {
-    const user = yield call(User.getProfile);
-    yield put({ type: 'FETCH_PROFILE_SUCCESS', payload: user });
-  } catch (error) {
-    yield put({ type: 'FETCH_PROFILE_FAILED', payload: error.message });
-  }
-}
-
 function* signUpSaga({ payload: { data, history } }) {
   try {
     const user = yield call(User.create, data);
@@ -105,6 +96,14 @@ function* getUsersSaga(action) {
   }
 }
 
+function* getUserSaga({ payload }) {
+  try {
+    const user = yield call(User.getUser, payload);
+    yield put({ type: 'FETCH_USER_SUCCESS', payload: user });
+  } catch (error) {
+    yield put({ type: 'FETCH_USER_FAILED', payload: error.message });
+  }
+}
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
@@ -114,7 +113,7 @@ export default function* rootSaga() {
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
   yield takeEvery('UPDATE_PROFILE', updateProfileSaga);
-  yield takeLatest('FETCH_PROFILE', getProfileSaga);
   yield takeEvery('AUTH_SIGNUP', signUpSaga);
   yield takeLatest('FETCH_USERS', getUsersSaga);
+  yield takeLatest('FETCH_USER', getUserSaga);
 }

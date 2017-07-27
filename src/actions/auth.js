@@ -13,10 +13,6 @@ export const saveProfile = (data) => ({
   payload: data
 });
 
-export const getProfile = () => ({
-  type: 'FETCH_PROFILE'
-});
-
 export const signUp = (data, history) => ({
   type: 'AUTH_SIGNUP',
   payload: { data, history }

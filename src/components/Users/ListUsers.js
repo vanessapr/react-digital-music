@@ -46,7 +46,7 @@ class ListUsers extends Component {
                         <td>{ users[item].doc }</td>
                         <td>{ users[item].birthdate }</td>
                         <td><Link to={`/users/edit/${item}`}><i className="zmdi zmdi-edit zmdi-hc-fw"></i> Edit</Link></td>
-                        <td><a><i className="zmdi zmdi-edit zmdi-hc-fw"></i> Remove </a></td>
+                        <td><a><i className="zmdi zmdi-playlist-audio zmdi-hc-fw"></i> Artists </a></td>
                       </tr>
                     )
                   :

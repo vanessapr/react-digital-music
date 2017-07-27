@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-const info = (state = {}, action) => {
+const data = (state = {}, action) => {
   switch (action.type) {
-    case 'FETCH_PROFILE_SUCCESS':
+    case 'FETCH_USER_SUCCESS':
       return action.payload;
     default:
       return state;
@@ -11,10 +11,10 @@ const info = (state = {}, action) => {
 
 const isLoading = (state = false, action) => {
   switch (action.type) {
-    case 'FETCH_PROFILE_SUCCESS':
-    case 'FETCH_PROFILE_FAILED':
+    case 'FETCH_USER_SUCCESS':
+    case 'FETCH_USER_FAILED':
       return false;
-    case 'FETCH_PROFILE':
+    case 'FETCH_USER':
       return true;
     default:
       return state;
@@ -23,10 +23,10 @@ const isLoading = (state = false, action) => {
 
 const errorMessage = (state = null, action) => {
   switch (action.type) {
-    case 'FETCH_PROFILE_FAILED':
+    case 'FETCH_USER_FAILED':
       return action.payload;
-    case 'FETCH_PROFILE_SUCCESS':
-    case 'FETCH_PROFILE':
+    case 'FETCH_USER_SUCCESS':
+    case 'FETCH_USER':
       return null;
     default:
       return state;
@@ -34,7 +34,7 @@ const errorMessage = (state = null, action) => {
 }
 
 export default combineReducers({
-  info,
+  data,
   isLoading,
   errorMessage
 });

@@ -9,7 +9,6 @@ import PrivateRoute from './PrivateRoute';
 import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './Login/SignUpContainer';
 import ProfileContainer from './Users/ProfileContainer';
-import UpdateProfileContainer from './Users/UpdateProfileContainer';
 import TopArtistsContainer from './artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
 import ListUsersContainer from './Users/ListUsersContainer';
@@ -57,9 +56,11 @@ class App extends Component {
                   <Route path="/signup" component={SignUpContainer} />
                   <Route path="/login" component={LoginContainer} />
                   <PrivateRoute path="/your_artists" auth={user} component={FavoriteArtistsContainer} />
-                  <PrivateRoute path="/profile" auth={user} component={UpdateProfileContainer} />
+                  <PrivateRoute path="/profile" auth={user} component={EditUserContainer} />
                   <PrivateRoute path="/users" exact auth={user} component={ListUsersContainer} />
-                  {/* <PrivateRoute path="/users/edit/:id" auth={user} title="Edit User" component={EditUserContainer} /> */}
+                  <PrivateRoute path="/users/edit/:id" auth={user}
+                    options={{title: "Edit User", location: "/users"}}
+                    component={EditUserContainer} />
                 </Switch>
               </div>
             </div>

@@ -59,15 +59,6 @@ export default {
       }).catch(reject);
     });
   },
-  getProfile: () => {
-    return new Promise((resolve, reject) => {
-      let currentUser = firebaseApp.auth().currentUser;
-      ref.child(`users/${currentUser.uid}`).once('value')
-        .then(snap => {
-          resolve( snap.val() );
-        }).catch(reject);
-    });
-  },
   getUser: (uid) => {
     return ref.child(`users/${uid}`).once('value')
       .then(snap => snap.val() );
