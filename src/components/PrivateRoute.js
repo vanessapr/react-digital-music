@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, auth, options, ...rest }) => {
   return (
     <Route {...rest} render={ props => {
       props.options = options;
-      props.uid = auth.uid;
+      props.uid = auth? auth.uid : undefined;
 
       return (
         !!auth || isLoggedIn?
