@@ -4,6 +4,10 @@ const data = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_USERS_SUCCESS':
       return action.payload;
+    case 'DELETE_USER_SUCCESS':
+      let newData = {...state};
+      delete newData[action.payload];
+      return newData;
     default:
       return state;
   }

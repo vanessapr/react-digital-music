@@ -122,6 +122,17 @@ function* addUserSaga({ payload }) {
   }
 }
 
+function* deleteUserSaga({ payload }) {
+  try {
+    const data = yield call(api.deleteUser, payload);
+    yield put({ type: 'DELETE_USER_SUCCESS', payload: payload });
+    notie.alert({ type: 'success', text: data.message });
+  } catch (error) {
+    yield put({ type: 'DELETE_USER_FAILED', payload: error.message });
+    notie.alert({ type: 'error', text: error.message });
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
   yield takeLatest('FETCH_FAVORITE_ARTISTS', fetchFavoriteArtistsSaga);
@@ -134,4 +145,5 @@ export default function* rootSaga() {
   yield takeLatest('FETCH_USER', getUserSaga);
   yield takeEvery('UPDATE_USER', updateUserSaga);
   yield takeEvery('ADD_USER', addUserSaga);
+  yield takeEvery('DELETE_USER', deleteUserSaga);
 }

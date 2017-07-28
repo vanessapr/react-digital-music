@@ -8,7 +8,7 @@ class ListUsers extends Component {
   }
 
   render() {
-    const { users, isLoading, errorMessage } = this.props;
+    const { users, isLoading, errorMessage, deleteUser } = this.props;
     let keys = Object.keys(users);
 
     return (
@@ -51,7 +51,10 @@ class ListUsers extends Component {
                         <td>{ users[item].doc }</td>
                         <td>{ users[item].birthdate }</td>
                         <td><Link to={`/users/edit/${item}`}><i className="zmdi zmdi-edit zmdi-hc-fw"></i> Edit</Link></td>
-                        <td><a><i className="zmdi zmdi-playlist-audio zmdi-hc-fw"></i> Artists </a></td>
+                        <td><a onClick={ e=> {
+                          e.preventDefault();
+                          deleteUser(item);
+                        } }><i className="zmdi zmdi-delete zmdi-hc-fw"></i> Remove </a></td>
                       </tr>
                     )
                   :

@@ -17,8 +17,14 @@ function addUser(data) {
     .then(response => response.data);
 }
 
+function deleteUser(uid) {
+  return axios.delete(`${HOST_URL}/api/users/${uid}`)
+    .then(response => response.data);
+}
+
 export default {
   getTopArtists: getTopArtists,
   updateUser: updateUser,
-  addUser: addUser
+  addUser: addUser,
+  deleteUser: deleteUser
 };

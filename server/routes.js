@@ -10,7 +10,7 @@ admin.initializeApp({
 
 const database = admin.database();
 
-router.post('/users', (req, res) => {
+router.post('/', (req, res) => {
   const data = req.body;
 
   admin.auth().createUser({
@@ -31,7 +31,7 @@ router.post('/users', (req, res) => {
 
 });
 
-router.put('/users/:uid', (req, res) => {
+router.put('/:uid', (req, res) => {
   const uid = req.params.uid;
   const data = req.body;
 
@@ -52,7 +52,21 @@ router.put('/users/:uid', (req, res) => {
   }).catch(err => {
     res.status(400).json(err);
   });
-
 });
+
+router.delete('/:uid', (req, res) => {
+  const uid = req.params.uid;
+  Promise.all([
+    admin.auth().deleteUser(uid),
+    database.ref(`/users/${uid}`).remove()
+  ])
+  .then(() => {
+    res.json({ message: 'Successfully deleted user' });
+  })
+  .catch(err => {
+    res.status(400).json(err);
+  });
+});
+
 
 module.exports = router;

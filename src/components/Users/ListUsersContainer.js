@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getUsers } from '../../actions/users';
+import { getUsers, deleteUser } from '../../actions/users';
 import ListUsers from './ListUsers';
 
 const mapStateToProps = (state) => ({
@@ -8,4 +8,4 @@ const mapStateToProps = (state) => ({
   errorMessage: state.users.errorMessage
 });
 
-export default connect(mapStateToProps, { getUsers })(ListUsers);
+export default connect(mapStateToProps, { getUsers, deleteUser })(ListUsers);
