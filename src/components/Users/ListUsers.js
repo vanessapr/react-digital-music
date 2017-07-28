@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import notie from 'notie';
+import 'notie/dist/notie.css';
 import { Link } from 'react-router-dom';
 import { Loading, Message } from '../Helpers';
 
@@ -53,7 +55,12 @@ class ListUsers extends Component {
                         <td><Link to={`/users/edit/${item}`}><i className="zmdi zmdi-edit zmdi-hc-fw"></i> Edit</Link></td>
                         <td><a onClick={ e=> {
                           e.preventDefault();
-                          deleteUser(item);
+                          notie.confirm({
+                            text: 'Are you sure you want to remove this user?',
+                            submitCallback: () => {
+                              deleteUser(item);
+                            }
+                          });
                         } }><i className="zmdi zmdi-delete zmdi-hc-fw"></i> Remove </a></td>
                       </tr>
                     )

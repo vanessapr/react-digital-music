@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import notie from 'notie';
+import 'notie/dist/notie.css';
+
 
 class FormUser extends Component {
   constructor(props) {
@@ -27,7 +30,7 @@ class FormUser extends Component {
     let isProfile = this.isProfile();
 
     if (this.password.value.trim() !== this.password_confirmation.value.trim()) {
-      alert('The passwords are not the same');
+      notie.alert({ type: 'warning', text: 'The passwords are not the same' });
       return;
     }
 
