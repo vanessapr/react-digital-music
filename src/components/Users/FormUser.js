@@ -19,20 +19,26 @@ class FormUser extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let data = {
+    const { isProfile, data } = this.props;
+
+    let dataForm = {
       fullName: this.fullName.value.trim(),
       email: this.email.value.trim(),
       password: this.password.value.trim(),
-      passwordOld: this.passwordOld.value.trim(),
       birthdate: this.birthdate.value,
-      doc: this.doc.value.trim()
+      doc: this.doc.value.trim(),
+      uid: data.uid
     };
 
-    this.props.onSaveUser(data);
+    if (isProfile) {
+      dataForm.yourPassword = this.yourPassword.value.trim();
+    }
+
+    this.props.onSaveUser( dataForm, isProfile );
   }
 
   render() {
-    const { urlCancel, disabled } = this.props;
+    const { urlCancel, isProfile } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -77,19 +83,22 @@ class FormUser extends Component {
               ref={ node => this.birthdate = node } placeholder="Enter your birthdate" />
           </div>
         </div>
-        <div className="grid-x">
-          <div className="cell small-3">
-            <label htmlFor="txt_password_old" className="required">Your password</label>
-          </div>
-          <div className="cell small-9">
-            <input type="password"
-              id="txt_password_old"
-              ref={ node => this.passwordOld = node }
-              required
-              minLength="6"
-              placeholder="Your password is neccessary" />
-          </div>
-        </div>
+        {
+          isProfile &&
+            <div className="grid-x">
+              <div className="cell small-3">
+                <label htmlFor="txt_your_password" className="required">Your password</label>
+              </div>
+              <div className="cell small-9">
+                <input type="password"
+                  id="txt_your_password"
+                  ref={ node => this.yourPassword = node }
+                  required
+                  minLength="6"
+                  placeholder="Your password is neccessary" />
+              </div>
+            </div>
+        }
         <div className="grid-x">
           <div className="cell small-3">
             <label htmlFor="txt_password">Password</label>
@@ -102,7 +111,7 @@ class FormUser extends Component {
         </div>
         <div className="grid-x">
           <div className="cell small-9 small-offset-3">
-            <button type="submit" className="button" disabled={disabled}>Update</button>{' '}
+            <button type="submit" className="button">Update</button>{' '}
             <Link to={urlCancel} className="button secondary">Cancel</Link>
           </div>
         </div>
@@ -110,7 +119,6 @@ class FormUser extends Component {
       </form>
     );
   }
-
 }
 
 export default FormUser;

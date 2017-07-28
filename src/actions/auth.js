@@ -8,11 +8,6 @@ export const signOut = (history) => ({
   payload: history
 });
 
-export const saveProfile = (data) => ({
-  type: 'UPDATE_PROFILE',
-  payload: data
-});
-
 export const signUp = (data, history) => ({
   type: 'AUTH_SIGNUP',
   payload: { data, history }

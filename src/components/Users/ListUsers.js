@@ -37,7 +37,7 @@ class ListUsers extends Component {
               </thead>
               <tbody>
                 {
-                  keys?
+                  keys.length?
                     keys.map((item, index) =>
                       <tr key={item}>
                         <td>{index + 1}</td>

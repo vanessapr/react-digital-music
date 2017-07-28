@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { getUserById } from '../../actions/users';
-import { saveProfile } from '../../actions/auth';
+import { getUserById, updateUser } from '../../actions/users';
 import EditUser from './EditUser';
 
 const mapStateToProps = (state) => ({
@@ -9,4 +8,4 @@ const mapStateToProps = (state) => ({
   errorMessage: state.user.errorMessage
 });
 
-export default connect(mapStateToProps, { getUserById, saveProfile })(EditUser);
+export default connect(mapStateToProps, { getUserById, updateUser })(EditUser);

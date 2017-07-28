@@ -10,8 +10,9 @@ class EditUser extends Component {
   }
 
   render() {
-    const { user, isLoading, errorMessage, saveProfile, location: { pathname }, options: { title, location } } = this.props;
-
+    const { user, isLoading, errorMessage, updateUser, location: { pathname }, options: { title, location } } = this.props;
+    let isProfile = pathname === '/profile'? true : false;
+    
     return (
       isLoading?
         <Loading height="100%" />
@@ -28,8 +29,8 @@ class EditUser extends Component {
               <FormUser
                 data={user}
                 urlCancel={location}
-                onSaveUser={saveProfile}
-                disabled={pathname === '/profile'? false : true}
+                isProfile={isProfile}
+                onSaveUser={updateUser}
               />
           }
         </div>

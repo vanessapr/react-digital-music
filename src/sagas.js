@@ -67,15 +67,6 @@ function* signOutSaga(action) {
   }
 }
 
-function* updateProfileSaga({ payload }) {
-  try {
-    yield call(User.updateProfile, payload);
-    notie.alert({ type: 'success', text: 'Updated your profile' });
-  } catch (error) {
-    notie.alert({ type: 'error', text: error.message });
-  }
-}
-
 function* signUpSaga({ payload: { data, history } }) {
   try {
     const user = yield call(User.create, data);
@@ -105,6 +96,22 @@ function* getUserSaga({ payload }) {
   }
 }
 
+function* updateUserSaga({ payload: { data, isProfile } }) {
+  try {
+    if (isProfile) {
+      yield call(User.updateProfile, data);
+    } else {
+      yield call(api.updateUser, data);
+    }
+    yield put({ type: 'UPDATE_USER_SUCCESS' });
+    notie.alert({ type: 'success', text: 'Updated your profile' });
+  } catch (error) {
+    yield put({ type: 'UPDATE_USER_FAILED' });
+    notie.alert({ type: 'error', text: error.message });
+  }
+}
+
+
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
   yield takeLatest('FETCH_FAVORITE_ARTISTS', fetchFavoriteArtistsSaga);
@@ -112,8 +119,8 @@ export default function* rootSaga() {
   yield takeEvery('REMOVE_FAVORITE_ARTIST', removeFavoriteSaga);
   yield takeEvery('AUTH_LOGIN', signInSaga);
   yield takeEvery('AUTH_LOGOUT', signOutSaga);
-  yield takeEvery('UPDATE_PROFILE', updateProfileSaga);
   yield takeEvery('AUTH_SIGNUP', signUpSaga);
   yield takeLatest('FETCH_USERS', getUsersSaga);
   yield takeLatest('FETCH_USER', getUserSaga);
+  yield takeEvery('UPDATE_USER', updateUserSaga);
 }

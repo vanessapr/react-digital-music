@@ -14,7 +14,7 @@ export default {
           Promise.all([
             ref.child(`users/${user.uid}`)
               .set({
-                role: 'public',
+                role: 'user',
                 fullName: fullName,
                 email: email,
               }),
@@ -29,10 +29,10 @@ export default {
   },
   updateProfile: (data) => {
     let currentUser = firebaseApp.auth().currentUser;
-    const { fullName, email, password, birthdate, doc, passwordOld } = data;
+    const { fullName, email, password, birthdate, doc, yourPassword } = data;
 
     return new Promise((resolve, reject) => {
-      let credentials = firebaseAuth.EmailAuthProvider.credential(currentUser.email, passwordOld);
+      let credentials = firebaseAuth.EmailAuthProvider.credential(currentUser.email, yourPassword);
       currentUser.reauthenticateWithCredential(credentials).then((response) => {
         Promise.all([
           currentUser.updateProfile({
@@ -41,7 +41,7 @@ export default {
           currentUser.updateEmail(email),
           ref.child(`users/${currentUser.uid}`)
             .set({
-              role: 'public',
+              role: 'user',
               fullName: fullName,
               email: email,
               birthdate: birthdate,
@@ -61,13 +61,15 @@ export default {
   },
   getUser: (uid) => {
     return ref.child(`users/${uid}`).once('value')
-      .then(snap => snap.val() );
+      .then(snap => snap.val() )
+      .then(data => Object.assign(data, { uid: uid } ));
   },
   getUsers: () => {
     let currentUser = firebaseApp.auth().currentUser;
     return ref.child('users').once('value')
       .then(snap => snap.val())
       .then(data => {
+        data = data || {};
         delete data[currentUser.uid]
         return data;
       });
