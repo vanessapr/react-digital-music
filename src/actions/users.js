@@ -11,3 +11,8 @@ export const updateUser = (data, isProfile) => ({
   type: 'UPDATE_USER',
   payload: { data, isProfile }
 });
+
+export const addUser = data => ({
+  type: 'ADD_USER',
+  payload: data
+});

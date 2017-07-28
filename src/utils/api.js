@@ -12,7 +12,13 @@ function updateUser(data) {
     .then(response => response.data);
 }
 
+function addUser(data) {
+  return axios.post(`${HOST_URL}/api/users`, data)
+    .then(response => response.data);
+}
+
 export default {
   getTopArtists: getTopArtists,
-  updateUser: updateUser
+  updateUser: updateUser,
+  addUser: addUser
 };

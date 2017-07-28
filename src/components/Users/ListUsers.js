@@ -13,7 +13,12 @@ class ListUsers extends Component {
 
     return (
       <div>
-        <h2 className="margin-bottom-1">Users</h2>
+        <h2 className="margin-bottom-1">
+            Users <small>Index</small>
+        </h2>
+        <Link to="/users/new" className="button small">
+          <i className="zmdi zmdi-accounts-add zmdi-hc-lg"></i> Add User
+        </Link>
         {
           isLoading?
             <Loading height="100%" />

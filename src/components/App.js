@@ -13,6 +13,7 @@ import TopArtistsContainer from './artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './artists/FavoriteArtistsContainer';
 import ListUsersContainer from './Users/ListUsersContainer';
 import EditUserContainer from './Users/EditUserContainer';
+import NewUserContainer from './Users/NewUserContainer';
 
 class App extends Component {
   state = {
@@ -61,6 +62,7 @@ class App extends Component {
                   <PrivateRoute path="/users/edit/:id" auth={user}
                     options={{title: "Edit User", location: "/users"}}
                     component={EditUserContainer} />
+                  <PrivateRoute path="/users/new" auth={user} component={NewUserContainer} />
                 </Switch>
               </div>
             </div>

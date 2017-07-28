@@ -111,7 +111,7 @@ class FormUser extends Component {
         </div>
         <div className="grid-x">
           <div className="cell small-9 small-offset-3">
-            <button type="submit" className="button">Update</button>{' '}
+            <button type="submit" className="button">Save</button>{' '}
             <Link to={urlCancel} className="button secondary">Cancel</Link>
           </div>
         </div>
@@ -120,5 +120,11 @@ class FormUser extends Component {
     );
   }
 }
+
+FormUser.defaultProps = {
+  urlCancel: '/users',
+  isProfile: false,
+  data: {}
+};
 
 export default FormUser;

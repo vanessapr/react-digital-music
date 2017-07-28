@@ -3,8 +3,9 @@ import artists from './artists';
 import favoriteArtists from './favoriteArtists';
 import login from './login';
 import auth from './auth';
-import users from './users';
-import user from './user';
+import users from './users/users';
+import user from './users/user';
+import newUser from './users/new_user';
 
 export default combineReducers({
   artists,
@@ -12,5 +13,6 @@ export default combineReducers({
   login,
   auth,
   users,
-  user
+  user,
+  newUser
 });

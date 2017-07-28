@@ -9,5 +9,5 @@ app.use(cors());
 app.use('/api', require('./routes'));
 
 app.listen(8081, () => {
-  console.log('running on port 8080')
+  console.log('running on port 8081')
 });

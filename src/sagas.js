@@ -111,6 +111,16 @@ function* updateUserSaga({ payload: { data, isProfile } }) {
   }
 }
 
+function* addUserSaga({ payload }) {
+  try {
+    yield call(api.addUser, payload);
+    yield put({ type: 'ADD_USER_SUCCESS' });
+    notie.alert({ type: 'success', text: 'Added user' });
+  } catch (error) {
+    yield put({ type: 'ADD_USER_FAILED', payload: error.message });
+    notie.alert({ type: 'error', text: error.message });
+  }
+}
 
 export default function* rootSaga() {
   yield takeLatest('FETCH_TOP_ARTISTS', fetchTopArtistsSaga);
@@ -123,4 +133,5 @@ export default function* rootSaga() {
   yield takeLatest('FETCH_USERS', getUsersSaga);
   yield takeLatest('FETCH_USER', getUserSaga);
   yield takeEvery('UPDATE_USER', updateUserSaga);
+  yield takeEvery('ADD_USER', addUserSaga);
 }
