@@ -6,6 +6,7 @@ import auth from './auth';
 import users from './users/users';
 import user from './users/user';
 import newUser from './users/new_user';
+import editUser from './users/edit_user';
 
 export default combineReducers({
   artists,
@@ -14,5 +15,6 @@ export default combineReducers({
   auth,
   users,
   user,
-  newUser
+  newUser,
+  editUser
 });

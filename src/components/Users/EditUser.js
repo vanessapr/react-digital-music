@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Loading, Message } from '../Helpers';
+import { Loading } from '../Helpers';
+import BlockUi from 'react-block-ui';
+import 'react-block-ui/style.css';
 import FormUser from './FormUser';
 
 class EditUser extends Component {
@@ -10,39 +12,34 @@ class EditUser extends Component {
   }
 
   render() {
-    const { user, isLoading, errorMessage, updateUser, location: { pathname }, options: { title, location } } = this.props;
+    const { user, isLoading, editIsLoading, updateUser, location: { pathname } } = this.props;
 
     return (
-      isLoading?
-        <Loading height="100%" />
-      :
-      (
-        <div>
-          <h2 className="margin-bottom-1">{ title }</h2>
-          {
-            errorMessage?
-              <Message type="alert" title="Error!">
-                <p>{ errorMessage }</p>
-              </Message>
-              :
-              <FormUser
-                data={user}
-                cancelUrl={location}
-                currentUrl={pathname}
-                onSaveUser={updateUser}
-              />
-          }
-        </div>
-      )
+      <div>
+        {
+          pathname !== '/profile'?
+          <h2 className="margin-bottom-1">
+            Users <small>Edit</small>
+          </h2>
+          :
+          <h2 className="margin-bottom-1">
+            Profile
+          </h2>
+        }
+        {
+          isLoading? <Loading height="100%" />
+          :
+          <BlockUi tag="div" blocking={editIsLoading}>
+            <FormUser
+              data={user}
+              currentUrl={pathname}
+              onSaveUser={updateUser}
+            />
+          </BlockUi>
+        }
+      </div>
     );
   }
 }
-
-EditUser.defaultProps = {
-  options: {
-    title: 'Profile',
-    location: '/'
-  }
-};
 
 export default EditUser;

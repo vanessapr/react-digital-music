@@ -55,8 +55,9 @@ class FormUser extends Component {
   }
 
   render() {
-    const { cancelUrl, currentUrl } = this.props;
+    const { currentUrl } = this.props;
     let isPasswordRequired = currentUrl === '/users/new';
+    let isProfile = this.isProfile();
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -102,7 +103,7 @@ class FormUser extends Component {
           </div>
         </div>
         {
-          !this.isProfile() &&
+          !isProfile &&
           <div className="grid-x">
             <div className="cell small-9 small-offset-3">
               <label>
@@ -113,7 +114,7 @@ class FormUser extends Component {
           </div>
         }
         {
-          this.isProfile() &&
+          isProfile &&
             <div className="grid-x">
               <div className="cell small-3">
                 <label htmlFor="txt_your_password" className="required">Your password</label>
@@ -154,7 +155,7 @@ class FormUser extends Component {
         <div className="grid-x">
           <div className="cell small-9 small-offset-3">
             <button type="submit" className="button">Save</button>{' '}
-            <Link to={cancelUrl} className="button secondary">Cancel</Link>
+            <Link to={isProfile? '/' : '/users'} className="button secondary">Cancel</Link>
           </div>
         </div>
 
@@ -164,7 +165,6 @@ class FormUser extends Component {
 }
 
 FormUser.defaultProps = {
-  cancelUrl: '/users',
   currentUrl: '/users/new',
   data: {}
 };

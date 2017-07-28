@@ -98,13 +98,15 @@ function* getUserSaga({ payload }) {
 
 function* updateUserSaga({ payload: { data, isProfile } }) {
   try {
+    let response;
     if (isProfile) {
-      yield call(User.updateProfile, data);
+      response = yield call(User.updateProfile, data);
     } else {
-      yield call(api.updateUser, data);
+      response = yield call(api.updateUser, data);
     }
+
     yield put({ type: 'UPDATE_USER_SUCCESS' });
-    notie.alert({ type: 'success', text: 'Updated your profile' });
+    notie.alert({ type: 'success', text: response.message });
   } catch (error) {
     yield put({ type: 'UPDATE_USER_FAILED' });
     notie.alert({ type: 'error', text: error.message });
@@ -113,9 +115,9 @@ function* updateUserSaga({ payload: { data, isProfile } }) {
 
 function* addUserSaga({ payload }) {
   try {
-    yield call(api.addUser, payload);
+    const response = yield call(api.addUser, payload);
     yield put({ type: 'ADD_USER_SUCCESS' });
-    notie.alert({ type: 'success', text: 'Added user' });
+    notie.alert({ type: 'success', text: response.message });
   } catch (error) {
     yield put({ type: 'ADD_USER_FAILED', payload: error.message });
     notie.alert({ type: 'error', text: error.message });

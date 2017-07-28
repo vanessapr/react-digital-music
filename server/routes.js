@@ -21,9 +21,11 @@ router.post('/', (req, res) => {
     database.ref(`/users/${user.uid}`).set({
       role: data.role,
       email: data.email,
-      fullName: data.fullName
+      fullName: data.fullName,
+      birthdate: data.birthdate,
+      doc: data.doc
     }).then(result => {
-      res.json(user);
+      res.json({ data: user, message: 'Successfully added user' });
     });
   }).catch(err => {
     res.status(400).json(err);
@@ -36,10 +38,12 @@ router.put('/:uid', (req, res) => {
   const data = req.body;
 
   Promise.all([
-    admin.auth().updateUser(uid, {
-      email: data.email,
-      displayName: data.fullName
-    }),
+    admin.auth().updateUser(uid,
+      Object.assign({
+        email: data.email,
+        displayName: data.fullName
+      }, data.password? { password: data.password } : {})
+    ),
     database.ref(`/users/${uid}`).set({
       fullName: data.fullName,
       email: data.email,
@@ -48,7 +52,7 @@ router.put('/:uid', (req, res) => {
       role: data.role
     })
   ]).then(results => {
-    res.json(results);
+    res.json({ data: results[0], message: 'Successfully updated user' });
   }).catch(err => {
     res.status(400).json(err);
   });

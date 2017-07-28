@@ -29,7 +29,7 @@ export default {
   },
   updateProfile: (data) => {
     let currentUser = firebaseApp.auth().currentUser;
-    const { fullName, email, password, birthdate, doc, yourPassword } = data;
+    const { fullName, email, password, birthdate, doc, yourPassword, role } = data;
 
     return new Promise((resolve, reject) => {
       let credentials = firebaseAuth.EmailAuthProvider.credential(currentUser.email, yourPassword);
@@ -41,7 +41,7 @@ export default {
           currentUser.updateEmail(email),
           ref.child(`users/${currentUser.uid}`)
             .set({
-              role: 'user',
+              role: role,
               fullName: fullName,
               email: email,
               birthdate: birthdate,
@@ -50,10 +50,12 @@ export default {
         ]).then(() => {
           if (password !== '') {
             currentUser.updatePassword(password)
-              .then(resolve)
+              .then(() => {
+                resolve({ message: 'Successfully updated profile' });
+              })
               .catch(reject);
           } else {
-            resolve();
+            resolve({ message: 'Successfully updated profle' });
           }
         });
       }).catch(reject);

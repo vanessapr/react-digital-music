@@ -59,9 +59,7 @@ class App extends Component {
                   <PrivateRoute path="/your_artists" auth={user} component={FavoriteArtistsContainer} />
                   <PrivateRoute path="/profile" auth={user} component={EditUserContainer} />
                   <PrivateRoute path="/users" exact auth={user} component={ListUsersContainer} />
-                  <PrivateRoute path="/users/edit/:id" auth={user}
-                    options={{title: "Edit User", location: "/users"}}
-                    component={EditUserContainer} />
+                  <PrivateRoute path="/users/edit/:id" auth={user} component={EditUserContainer} />
                   <PrivateRoute path="/users/new" auth={user} component={NewUserContainer} />
                 </Switch>
               </div>
