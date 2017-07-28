@@ -14,12 +14,22 @@ class FormUser extends Component {
       this.email.value = data.email;
       this.doc.value = data.doc || '';
       this.birthdate.value = data.birthdate || '';
+
+      if (!this.isProfile()) {
+        this.role.checked = data.role === 'admin';
+      }
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { isProfile, data } = this.props;
+    const { data } = this.props;
+    let isProfile = this.isProfile();
+
+    if (this.password.value.trim() !== this.password_confirmation.value.trim()) {
+      alert('The passwords are not the same');
+      return;
+    }
 
     let dataForm = {
       fullName: this.fullName.value.trim(),
@@ -32,13 +42,21 @@ class FormUser extends Component {
 
     if (isProfile) {
       dataForm.yourPassword = this.yourPassword.value.trim();
+      dataForm.role = data.role;
+    } else {
+      dataForm.role = this.role.checked? 'admin' : 'user';
     }
 
     this.props.onSaveUser( dataForm, isProfile );
   }
 
+  isProfile() {
+    return this.props.currentUrl === '/profile'? true : false;
+  }
+
   render() {
-    const { urlCancel, isProfile } = this.props;
+    const { cancelUrl, currentUrl } = this.props;
+    let isPasswordRequired = currentUrl === '/users/new';
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -84,7 +102,18 @@ class FormUser extends Component {
           </div>
         </div>
         {
-          isProfile &&
+          !this.isProfile() &&
+          <div className="grid-x">
+            <div className="cell small-9 small-offset-3">
+              <label>
+                <input type="checkbox"
+                  ref={ node => this.role = node } /> Administrator
+              </label>
+            </div>
+          </div>
+        }
+        {
+          this.isProfile() &&
             <div className="grid-x">
               <div className="cell small-3">
                 <label htmlFor="txt_your_password" className="required">Your password</label>
@@ -101,18 +130,31 @@ class FormUser extends Component {
         }
         <div className="grid-x">
           <div className="cell small-3">
-            <label htmlFor="txt_password">Password</label>
+            <label htmlFor="txt_password" className={isPasswordRequired? 'required': ''}>Password</label>
           </div>
           <div className="cell small-9">
             <input type="password"
               id="txt_password"
-              ref={ node => this.password = node } placeholder="Enter your password" />
+              ref={ node => this.password = node }
+              minLength="6"
+              placeholder="Enter your password" required={isPasswordRequired} />
+          </div>
+        </div>
+        <div className="grid-x">
+          <div className="cell small-3">
+            <label htmlFor="txt_password_confirmation" className={isPasswordRequired? 'required': ''}>Password confirmation</label>
+          </div>
+          <div className="cell small-9">
+            <input type="password"
+              id="txt_password_confirmation"
+              minLength="6"
+              ref={ node => this.password_confirmation = node } placeholder="Enter your password again" required={isPasswordRequired} />
           </div>
         </div>
         <div className="grid-x">
           <div className="cell small-9 small-offset-3">
             <button type="submit" className="button">Save</button>{' '}
-            <Link to={urlCancel} className="button secondary">Cancel</Link>
+            <Link to={cancelUrl} className="button secondary">Cancel</Link>
           </div>
         </div>
 
@@ -122,8 +164,8 @@ class FormUser extends Component {
 }
 
 FormUser.defaultProps = {
-  urlCancel: '/users',
-  isProfile: false,
+  cancelUrl: '/users',
+  currentUrl: '/users/new',
   data: {}
 };
 

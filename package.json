@@ -10,6 +10,7 @@
     "material-design-iconic-font": "^2.2.0",
     "notie": "^4.3.1",
     "react": "^15.6.1",
+    "react-block-ui": "^0.2.6",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",

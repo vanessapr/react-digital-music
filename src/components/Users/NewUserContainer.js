@@ -3,8 +3,7 @@ import { addUser } from '../../actions/users';
 import NewUser from './NewUser';
 
 const mapStateToProps = state => ({
-  isLoading: false,
-  errorMessage: state.newUser.errorMessage
+  isLoading: state.newUser.isLoading
 });
 
 export default connect(mapStateToProps, { addUser })(NewUser);

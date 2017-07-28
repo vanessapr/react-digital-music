@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
     password: data.password
   }).then( user => {
     database.ref(`/users/${user.uid}`).set({
-      role: 'user',
+      role: data.role,
       email: data.email,
       fullName: data.fullName
     }).then(result => {
@@ -45,7 +45,7 @@ router.put('/:uid', (req, res) => {
       email: data.email,
       birthdate: data.birthdate,
       doc: data.doc,
-      role: 'user'
+      role: data.role
     })
   ]).then(results => {
     res.json(results);
