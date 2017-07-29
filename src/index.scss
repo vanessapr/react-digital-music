@@ -1,17 +1,20 @@
 body {
-  background-color: #f7f7f7; }
+  background-color: #f7f7f7;
+}
 
 .top-bar {
   /*background-color: #16D887;*/
   /*background-color: rgba(0,0,0,.6);*/
   /*background-color: #04D976;*/
-  background-color: white; }
-
+  background-color: white;
+}
 .top-bar ul {
-  background-color: transparent; }
+  background-color: transparent;
+}
 
 .required::after {
   content: '*';
   padding-left: 5px;
   font-size: 16px;
-  color: red; }
+  color: red;
+}

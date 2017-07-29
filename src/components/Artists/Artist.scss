@@ -1,0 +1,29 @@
+$background: #fff;
+$title-color: #000;
+$title-color-hover: #c2c7c9;
+$listeners-color: #9d9c9c;
+
+.card {
+  &.artist {
+    background: $background;
+    border: 0;
+    position: relative;
+
+    a {
+      color: $title-color;
+
+      &:hover {
+        color: $title-color-hover;
+      }
+    }
+
+    .card-section {
+      padding: .8rem;
+      text-align: center;
+
+      p {
+        color: $listeners-color;
+      }
+    }
+  }
+}

@@ -28,7 +28,7 @@ class Login extends Component {
       :
       <div className="grid-x">
         <div className="cell medium-6 medium-offset-3">
-          <h3>Login <small>React Music</small></h3>
+          <h3>Sign In <small>React Digital Music</small></h3>
           <form onSubmit={this.handleSubmit}>
             <label>
               Email

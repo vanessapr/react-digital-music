@@ -20,7 +20,7 @@ class TopArtists extends Component {
             <p>{ errorMessage }</p>
           </Message>
         :
-        <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-5">
+        <div className="grid-x grid-margin-x small-up-1 medium-up-3 large-up-5">
           {
             Object.keys(artists).map( (uuid, index) =>
               <div key={index} className="cell">

@@ -1,7 +1,8 @@
 import React from 'react';
+import './Artist.css';
 
 const Artist = ({ data, onAddFavorite, onRemoveFavorite }) => (
-  <div className="card">
+  <div className="card artist">
     <img src={data.image} alt={data.name} />
     {
       data.selected?
@@ -21,7 +22,8 @@ const Artist = ({ data, onAddFavorite, onRemoveFavorite }) => (
       <h5>
         <a href={data.url} target="blank">{data.name}</a>
       </h5>
-      <p><i className="zmdi zmdi-headset zmdi-hc-fw"></i>{data.listeners}
+      <p>
+        <i className="zmdi zmdi-headset zmdi-hc-fw"></i>{data.listeners}
       </p>
     </div>
   </div>
