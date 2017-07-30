@@ -1,4 +1,4 @@
-import { firebaseAuth, ref } from './firebase';
+import { firebaseAuth, ref } from './index';
 
 export default {
   addFavorite: (data) => {

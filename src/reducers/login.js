@@ -14,6 +14,19 @@ const isLoggedIn = (state = false, action) => {
   }
 }
 
+const user = (state = null, action) => {
+  switch (action.type) {
+    case 'AUTH_LOGIN_SUCCESS':
+    case 'AUTH_STATUS_SUCCESS':
+      return action.payload;
+    case 'AUTH_STATUS_FAILED':
+    case 'AUTH_LOGIN_FAILED':
+      return null;
+    default:
+      return state;
+  }
+}
+
 const isLoading = (state = false, action) => {
   switch (action.type) {
     case 'AUTH_LOGIN':
@@ -40,6 +53,7 @@ const errorMessage = (state = null, action) => {
 
 export default combineReducers({
   isLoggedIn,
+  user,
   isLoading,
   errorMessage
 });

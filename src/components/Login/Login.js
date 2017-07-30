@@ -20,10 +20,10 @@ class Login extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isLoading } = this.props;
 
     return (
-      isLoggedIn?
+      isLoggedIn && !isLoading?
         <Redirect to="/" />
       :
       <div className="grid-x">

@@ -1,8 +1,15 @@
-import firebaseApp, { firebaseAuth, ref } from './firebase';
+import firebaseApp, { firebaseAuth, ref } from './index';
 
-export default {
-  login: ({ email, password }) => {
-    return firebaseApp.auth().signInWithEmailAndPassword(email, password);
+let User = {
+  login: function({ email, password }) {
+    return new Promise((resolve, reject) => {
+      firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        .then( user => {
+          User.getUser(user.uid)
+            .then(resolve)
+            .catch(reject);
+        }).catch(reject);
+    });
   },
   logout: () => {
     return firebaseApp.auth().signOut();
@@ -66,7 +73,7 @@ export default {
       .then(snap => snap.val() )
       .then(data => Object.assign(data, { uid: uid } ));
   },
-  getUsers: () => {
+  getUsers: function() {
     let currentUser = firebaseApp.auth().currentUser;
     return ref.child('users').once('value')
       .then(snap => snap.val())
@@ -76,4 +83,6 @@ export default {
         return data;
       });
   }
-}
+};
+
+export default User;

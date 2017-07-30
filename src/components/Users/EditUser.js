@@ -6,7 +6,7 @@ import FormUser from './FormUser';
 
 class EditUser extends Component {
   componentDidMount() {
-    const { getUserById, match: { params: { id } }, location: { pathname }, uid } = this.props;
+    const { getUserById, match: { params: { id } }, location: { pathname }, auth: { uid } } = this.props;
     let userId = pathname === '/profile'? uid : id;
     getUserById(userId);
   }

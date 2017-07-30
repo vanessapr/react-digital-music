@@ -2,8 +2,7 @@ import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import notie from 'notie';
 import 'notie/dist/notie.css';
 import api from './utils/api';
-import Artist from './utils/artist';
-import User from './utils/user';
+import { User, Artist } from './utils/firebase';
 
 function* fetchTopArtistsSaga(action) {
   try {

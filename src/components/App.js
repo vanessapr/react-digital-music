@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import store from '../configureStore';
-import firebaseApp from '../utils/firebase';
+import firebaseApp, { User } from '../utils/firebase';
 import { Loading } from './Helpers';
 import TopbarContainer from './Topbar/TopbarContainer';
 import Navigation from './Navigation';
-import PrivateRoute from './PrivateRoute';
 import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './Login/SignUpContainer';
 import ProfileContainer from './Users/ProfileContainer';
@@ -14,6 +13,8 @@ import FavoriteArtistsContainer from './Artists/FavoriteArtistsContainer';
 import ListUsersContainer from './Users/ListUsersContainer';
 import EditUserContainer from './Users/EditUserContainer';
 import NewUserContainer from './Users/NewUserContainer';
+
+import Authorization from './Authorization';
 
 class App extends Component {
   state = {
@@ -24,10 +25,13 @@ class App extends Component {
   componentDidMount() {
     store.dispatch({ type: 'AUTH_STATUS' });
     firebaseApp.auth().onAuthStateChanged( user => {
-      this.setState({ user: user, isLoading: false });
       if (user) {
-        store.dispatch({ type: 'AUTH_STATUS_SUCCESS', payload: user });
+        User.getUser(user.uid).then( data => {
+          this.setState({ user: data, isLoading: false });
+          store.dispatch({ type: 'AUTH_STATUS_SUCCESS', payload: data });
+        });
       } else {
+        this.setState({ user: null, isLoading: false });
         store.dispatch({ type: 'AUTH_STATUS_FAILED'});
       }
     });
@@ -53,14 +57,14 @@ class App extends Component {
               </div>
               <div className="cell medium-9 medium-cell-block-y">
                 <Switch>
-                  <PrivateRoute path="/" exact auth={user} component={TopArtistsContainer} />
+                  <Route path="/" exact component={Authorization(user)(TopArtistsContainer)} />
                   <Route path="/signup" component={SignUpContainer} />
                   <Route path="/login" component={LoginContainer} />
-                  <PrivateRoute path="/your_artists" auth={user} component={FavoriteArtistsContainer} />
-                  <PrivateRoute path="/profile" auth={user} component={EditUserContainer} />
-                  <PrivateRoute path="/users" exact auth={user} component={ListUsersContainer} />
-                  <PrivateRoute path="/users/edit/:id" auth={user} component={EditUserContainer} />
-                  <PrivateRoute path="/users/new" auth={user} component={NewUserContainer} />
+                  <Route path="/your_artists" component={Authorization(user)(FavoriteArtistsContainer)} />
+                  <Route path="/profile" component={Authorization(user)(EditUserContainer)} />
+                  <Route path="/users" exact component={Authorization(user)(ListUsersContainer)} />
+                  <Route path="/users/edit/:id" component={Authorization(user)(EditUserContainer)} />
+                  <Route path="/users/new" component={Authorization(user)(NewUserContainer)} />
                 </Switch>
               </div>
             </div>
