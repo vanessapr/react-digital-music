@@ -21,11 +21,11 @@ class SignUp extends Component {
   }
 
   render() {
-    
+
     return (
       <div className="grid-x">
         <div className="cell medium-6 medium-offset-3">
-          <h3>Sign Up <small>React Music</small></h3>
+          <h3 className="margin-bottom-1">Sign Up <small>React Music</small></h3>
 
           <form onSubmit={this.handleSubmit}>
             <label>
@@ -42,8 +42,10 @@ class SignUp extends Component {
               <span className="required">Password</span>
               <input type="password" ref={ node => this.password = node } placeholder="Enter your password" required />
             </label>
-            <button type="submit" className="button">Save</button>
-            {' '}<Link to="/login">Login</Link>
+            <button type="submit" className="button small rounded expanded">Save</button>
+            <div className="text-center login-links">
+              <Link to="/login">Sign In</Link>
+            </div>
           </form>
         </div>
       </div>

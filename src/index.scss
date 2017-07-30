@@ -1,20 +1,10 @@
-body {
-  background-color: #f7f7f7;
-}
+$required-color: #f00;
 
-.top-bar {
-  /*background-color: #16D887;*/
-  /*background-color: rgba(0,0,0,.6);*/
-  /*background-color: #04D976;*/
-  background-color: white;
-}
-.top-bar ul {
-  background-color: transparent;
-}
-
-.required::after {
-  content: '*';
-  padding-left: 5px;
-  font-size: 16px;
-  color: red;
+.required {
+  &::after {
+    color: $required-color;
+    content: '*';
+    font-size: 16px;
+    padding-left: 5px;
+  }
 }
