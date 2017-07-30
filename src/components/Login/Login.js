@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Login extends Component {
       isLoggedIn && !isLoading?
         <Redirect to="/" />
       :
-      <div className="grid-x">
+      <div className="grid-x login">
         <div className="cell medium-6 medium-offset-3">
           <h3>Sign In <small>React Digital Music</small></h3>
           <form onSubmit={this.handleSubmit}>
@@ -38,8 +39,11 @@ class Login extends Component {
               Password
               <input type="password" ref={ node => this.password = node } placeholder="Enter your password" required />
             </label>
-            <button type="submit" className="button">Sign In</button>
-              {' '}<Link to="/signup">Sign Up</Link>
+            <button type="submit" className="button small success rounded expanded">Sign In</button>
+            <div className="text-center login-links">
+              <Link to="/recover_password">Recover password</Link>
+              <Link to="/signup">Sign up here!</Link>
+            </div>
           </form>
         </div>
       </div>

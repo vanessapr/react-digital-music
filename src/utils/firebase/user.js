@@ -1,4 +1,5 @@
 import firebaseApp, { firebaseAuth, ref } from './index';
+import firebase from 'firebase';
 
 let User = {
   login: function({ email, password }) {
@@ -33,6 +34,9 @@ let User = {
           }).catch(reject);
         }).catch(reject);
     });
+  },
+  recoverPassword: (email) => {
+    return firebaseAuth().sendPasswordResetEmail(email);
   },
   updateProfile: (data) => {
     let currentUser = firebaseApp.auth().currentUser;
@@ -73,7 +77,7 @@ let User = {
       .then(snap => snap.val() )
       .then(data => Object.assign(data, { uid: uid } ));
   },
-  getUsers: function() {
+  getUsers: () => {
     let currentUser = firebaseApp.auth().currentUser;
     return ref.child('users').once('value')
       .then(snap => snap.val())

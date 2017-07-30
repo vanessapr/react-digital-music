@@ -3,6 +3,7 @@ export default {
   FIREBASE_API_KEY: 'AIzaSyD9Uq-SFMsSrKi3gEuXkynU9bASKxzwPnk',
   FIREBASE_AUTH_DOMAIN: 'app-react-music.firebaseapp.com',
   FIREBASE_DATABASE_URL: 'https://app-react-music.firebaseio.com',
+  FIREBASE_PROJECT_ID: 'app-react-music',
   FIREBASE_STORAGE_BUCKET: 'app-react-music.appspot.com',
   FIREBASE_MESSAGING_SENDER_ID: '324628614054'
 };

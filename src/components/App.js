@@ -7,13 +7,13 @@ import TopbarContainer from './Topbar/TopbarContainer';
 import Navigation from './Navigation';
 import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './Login/SignUpContainer';
+import RecoverPassword from './Login/RecoverPassword';
 import ProfileContainer from './Users/ProfileContainer';
 import TopArtistsContainer from './Artists/TopArtistsContainer';
 import FavoriteArtistsContainer from './Artists/FavoriteArtistsContainer';
 import ListUsersContainer from './Users/ListUsersContainer';
 import EditUserContainer from './Users/EditUserContainer';
 import NewUserContainer from './Users/NewUserContainer';
-
 import Authorization from './Authorization';
 
 class App extends Component {
@@ -60,6 +60,7 @@ class App extends Component {
                   <Route path="/" exact component={Authorization(user)(TopArtistsContainer)} />
                   <Route path="/signup" component={SignUpContainer} />
                   <Route path="/login" component={LoginContainer} />
+                  <Route path="/recover_password" component={RecoverPassword} />
                   <Route path="/your_artists" component={Authorization(user)(FavoriteArtistsContainer)} />
                   <Route path="/profile" component={Authorization(user)(EditUserContainer)} />
                   <Route path="/users" exact component={Authorization(user)(ListUsersContainer)} />
