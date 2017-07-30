@@ -8,5 +8,8 @@
     "cors": "^2.8.4",
     "express": "^4.15.3",
     "firebase-admin": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

@@ -3,21 +3,13 @@ This application shows the top artists y their songs. It has a section for manag
 ![](https://image.ibb.co/jvWS0Q/portrait.png)
 
 ## Run locally
-In the project directory, you can run:
+First, install dependencies:
 
-### `yarn install`
-### `yarn start`
+    yarn install && cd server && yarn install && cd ..
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in the development mode on: [http://localhost:3000](http://localhost:3000)
 
-
-### `yarn run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-See the section about [deployment](#deployment) for more information.
+    yarn start
 
 ## Tools used
 * [Create React App](https://facebook.github.io/react/)
@@ -27,6 +19,3 @@ See the section about [deployment](#deployment) for more information.
 * [Express](https://github.com/expressjs/express)
 * [Foundation for Sites](http://foundation.zurb.com/sites/docs/)
 * [Api Last.fm](http://www.last.fm/api)
-
-
-[Live](https://app-react-music.firebaseapp.com)
